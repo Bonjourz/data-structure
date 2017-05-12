@@ -36,8 +36,8 @@ bool get_input(map<string, int>& suffix_map, map<string, vector<string>>& words_
 
 void get_result(const map<string, int>& suffix_map) {
 	vector<pair<int, string>> vec;
-	for (auto& p : suffix_map) {
-		vec.push_back(make_pair(p.second, p.first));
+	for (auto p = suffix_map.begin(); p != suffix_map.end(); p++) {
+		vec.push_back(make_pair(p->second, p->first));
 	}
 	sort(vec.begin(), vec.end());
 	int size = vec.size();
