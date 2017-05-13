@@ -1,5 +1,3 @@
-/* Zhu Bojun 515030910298 */
-
 
 #include <map>
 #include <fstream>
@@ -11,7 +9,7 @@
 
 using namespace std;
 
-bool get_input(map<string, int>& suffix_map, map<string, vector<string>>& words_suffix) {
+bool get_input(map<string, int>& suffix_map, map<string, vector<string> >& words_suffix) {
 	fstream ifs;
 	ifs.open("dictionary.txt");
 	if (!ifs)
@@ -35,9 +33,9 @@ bool get_input(map<string, int>& suffix_map, map<string, vector<string>>& words_
 }
 
 void get_result(const map<string, int>& suffix_map) {
-	vector<pair<int, string>> vec;
-	for (auto p = suffix_map.begin(); p != suffix_map.end(); p++) {
-		vec.push_back(make_pair(p->second, p->first));
+	vector<pair<int, string> > vec;
+	for (auto& p : suffix_map) {
+		vec.push_back(make_pair(p.second, p.first));
 	}
 	sort(vec.begin(), vec.end());
 	int size = vec.size();
@@ -46,10 +44,18 @@ void get_result(const map<string, int>& suffix_map) {
 		<< vec[size - 1 - i].first  << endl;
 }
 
-void query(map<string, vector<string>>& words_suffix) {
+void query(map<string, vector<string> >& words_suffix) {
 	string suffix;
+	char ch;
 	while (true) {
-		cout << "Please input the suffix: ";
+		ch = cin.get();
+		cout << "Please input the suffix(Enter to quit): ";
+		ch = cin.peek();
+		if (ch == '\n') {
+			cout << "Have a nice day!" << endl;
+			exit(0);
+		}
+
 		cin >> suffix;
 
 		if (words_suffix.find(suffix) == words_suffix.end()) 
@@ -67,7 +73,7 @@ void query(map<string, vector<string>>& words_suffix) {
 int main()
 {
 	map<string, int> suffix_map;
-	map<string, vector<string>> words_suffix;
+	map<string, vector<string> > words_suffix;
 	while (!get_input(suffix_map, words_suffix));
 	get_result(suffix_map);
 	query(words_suffix);
